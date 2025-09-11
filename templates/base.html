@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="{{url_for('static', filename='js/jquery-3.7.1.min.js')}}"></script>
+    <link
+      rel="stylesheet"
+      media="screen"
+      href="{{url_for('static', filename='css/tailwind.css')}}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='icon/favicon.ico') }}"
+    />
+    <link rel="stylesheet" media="screen" href="static/css/custom-colors.css" />
+    <link
+      rel="stylesheet"
+      media="screen"
+      href="{{url_for('static', filename='css/fontawesome.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      media="screen"
+      href="{{url_for('static', filename='css/solid.css')}}"
+    />
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+  {% block content %} {% endblock %}
+</html>

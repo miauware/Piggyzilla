@@ -1,0 +1,13 @@
+[project]
+name = "piggyzilla"
+version = "0.1.0"
+description = "personal finance app"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "flask>=3.1.2",
+    "flask-babel>=4.0.0",
+    "flask-login>=0.6.3",
+    "flask-sqlalchemy>=3.1.1",
+    "flask-wtf>=1.2.2",
+]

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% block content %}
+<body class="flex items-center justify-center min-h-screen custombg">
+
+    <div class="fixed top-4 right-4 flex items-center space-x-2 z-10">
+        <span class="customtext">PT</span>
+        <div class="relative inline-block w-10 align-middle select-none">
+            <form action="{{ url_for('index.set_language', language='en' if session.get('lang') == 'pt' else 'pt') }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="checkbox" name="language" value="toggle" id="toggle" class="hidden" {{ 'checked' if session.get('lang') == 'en' else '' }} onchange="this.form.submit()">
+                <label for="toggle" class="block overflow-hidden h-4 rounded-full bg-purple-300 cursor-pointer">
+                    <span class="block w-4 h-4 bg-white rounded-full shadow-sm transform transition-transform duration-300 ease-in-out {{ 'translate-x-4' if session.get('lang') == 'en' else 'translate-x-0' }}"></span>
+                </label>
+            </form>
+        </div>
+        <span class="customtext">EN</span>
+    </div>
+
+    <div class="customfg bg-opacity-85 text-center text-white p-8 rounded-lg shadow-lg w-full max-w-md mt-12">
+        <div class="flex flex-col items-center mb-6">
+            <img src="{{ url_for('static', filename='icon/icon.png') }}" class="w-32 mb-4">
+            <h2 class="text-2xl font-bold customtext">Piggyzilla</h2>
+        </div>
+
+        <form method="POST" id="loginForm"><form method="POST" action="#" id="loginForm">
+
+            <div class="mb-4 text-left">
+                <label for="username" class="block text-sm font-medium">{{ _('Username') }}</label>
+                <input type="text" name="username" id="username" required
+                       class="mt-1 block w-full text-center customtext rounded-sm border-gray-300 bg-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg sm:text-sm min-h-8">
+            </div>
+            <div class="mb-6 text-left">
+                <label for="password" class="block text-sm font-medium">{{ _('Password') }}</label>
+                <input type="password" name="password" id="password" required
+                       class="mt-1 block w-full text-center customtext rounded-sm border-gray-300 shadow-sm bg-gray-400 focus:border-indigo-500 focus:ring-indigo-500 text-lg sm:text-sm min-h-8">
+            </div>
+            <div class="flex items-center mb-4">
+                <input id="remember" type="checkbox" name="remember" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                <label for="remember" class="ml-2 block text-sm text-gray-100">
+                    {{ _('Keep me logged in') }}
+                </label>
+            </div>
+            <button type="submit"
+                    class="w-full py-2 px-4 bg-indigo-600 customtext text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                {{ _('Login') }}
+            </button>
+        </form>
+
+        <div id="loginmessage" class="text-red-500 mt-4" style="display:none;"></div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var login_error="{{ _('Login or password are incorrect')}}"
+            var process_error="{{ _('Error processing request')}}"
+           
+            $("#loginForm").on("submit", function(event) {
+                event.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url_for('auth.auth') }}",
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.success) {
+                            window.location.href = "{{ url_for('index.home') }}";
+                        } else {
+                            $("#loginmessage").text(login_error).show();
+                            setTimeout(function() {
+                                $("#loginmessage").fadeOut();
+                            }, 5000);
+                        }
+                    },
+                    error: function() {
+                        $("#loginmessage").text("{{ _("Error processing request") }}").show();
+                        setTimeout(function() {
+                            $("#loginmessage").fadeOut();
+                        }, 3000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+{% endblock %}
