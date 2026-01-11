@@ -28,7 +28,9 @@ for bp in routes.blueprints:
 @login_manager.user_loader
 def load_user(user_id):
     from models.user import User
-    return User.query.get(int(user_id))
+    from extensions import db
+    return db.session.get(User, int(user_id))
+
 
 @login_manager.unauthorized_handler
 def unauthorized_callback():
