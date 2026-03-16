@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+<title>{% block title %}Dashboard{% endblock %}</title>
+<link rel="stylesheet" media="screen" href="{{url_for('static',filename='css/dashboard.css')}}" />
+<script src="{{url_for('static',filename='js/dashboard.js')}}"></script>
+<body class="items-center justify-center min-h-screen custombg">
+  <!-- INFO: Navbar -->
+  <nav class="customfg2 p-4 flex justify-between items-center">
+    <div class="flex text-white text-lg custom-text">
+      <img src="{{ url_for('static', filename='icon/icon.png') }}" class="w-8 mr-2" />
+      Piggyzilla
+    </div>
+    <button class="text-white custombutton px-3 py-1 rounded-sm logoutbutton" id="logout">Logout</button>
+  </nav>
+
+  <!-- INFO: Sidebar & Main Content -->
+  <div class="flex flex-col md:flex-row h-screen">
+    <!-- INFO: Sidebar -->
+    <aside class="customfg text-white w-full md:w-64 p-4 md:flex md:flex-col">
+      <div class="hidden panel md:block">
+        <ul>
+          <li class="mb-4" id="dash">
+            <a href="#" class="hover:bg-blue-800 customfg2 block p-2 rounded-sm">{{ _('Dashboard')}}</a>
+          </li>
+
+          <li class="mb-4" id="transactions">
+            <a href="#" class="hover:bg-amber-200 customfg2 block p-2 rounded-sm">{{ _('Transactions') }}</a>
+          </li>
+          <li class="mb-4" id="income">
+            <a href="#" class="hover:bg-blue-800 customfg2 block p-2 rounded-sm">{{ _('Income') }}</a>
+          </li>
+          <li class="mb-4" id="expense">
+            <a href="#" class="hover:bg-blue-80
+{% endblock %}
