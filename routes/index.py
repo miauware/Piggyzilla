@@ -27,13 +27,14 @@ def home():
     return render_template("index.html")
 
 
-@bp.route('/set_language/<language>', methods=['POST'])
+@bp.route("/set_language/<language>", methods=["POST"])
 def set_language(language):
-    session['lang'] = language
-    next_page = request.referrer or url_for('index.home')
+    session["lang"] = language
+    next_page = request.referrer or url_for("index.home")
     return redirect(next_page)
 
-@bp.route('/static/css/custom-colors.css')
+
+@bp.route("/static/css/custom-colors.css")
 def customcss():
     customfg = "#1f2936"
     customfg2 = "#5e00d1"
@@ -67,4 +68,4 @@ def customcss():
         font-family: var(--customfont);
     }}
     """
-    return Response(css, mimetype='text/css')
+    return Response(css, mimetype="text/css")

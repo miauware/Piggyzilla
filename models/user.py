@@ -1,9 +1,11 @@
-from extensions import db 
+from extensions import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import models
 import secrets
 from datetime import datetime, timedelta
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -23,6 +25,7 @@ class User(UserMixin, db.Model):
         self.session_expiration = None
         db.session.commit()
 
+
 def create_admin():
     admin = User.query.filter_by(username="admin").first()
     if not admin:
@@ -31,4 +34,3 @@ def create_admin():
         db.session.add(new_admin)
         db.session.commit()
         print("Admin user created.")
-

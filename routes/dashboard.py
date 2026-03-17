@@ -13,8 +13,8 @@ from models.user import User
 from main import db, csrf
 from routes.auth import token_required
 
-
 bp = Blueprint("dashboard", __name__)
+
 
 @bp.route("/dashboard")
 @token_required

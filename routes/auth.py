@@ -17,6 +17,7 @@ from functools import wraps
 
 bp = Blueprint("auth", __name__)
 
+
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -26,7 +27,11 @@ def token_required(f):
         token = request.cookies.get("session_token")
         if token:
             user = User.query.filter_by(session_token=token).first()
-            if user and user.session_expiration and user.session_expiration > datetime.utcnow():
+            if (
+                user
+                and user.session_expiration
+                and user.session_expiration > datetime.utcnow()
+            ):
                 login_user(user, remember=False)
                 return f(*args, **kwargs)
             else:
@@ -66,7 +71,7 @@ def auth():
                 resp.set_cookie(
                     "session_token",
                     token,
-                    max_age=30*24*3600,
+                    max_age=30 * 24 * 3600,
                     httponly=True,
                     samesite="Lax",
                 )
