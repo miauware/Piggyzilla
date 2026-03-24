@@ -9,6 +9,7 @@ from flask import (
     Response,
     current_app,
     session,
+    send_from_directory,
 )
 from flask_babel import _
 from flask_login import login_user, current_user
@@ -25,6 +26,13 @@ def home():
     if current_user.is_authenticated:
         return redirect(url_for("dashboard.dashboard"))
     return render_template("index.html")
+
+
+@bp.route("/favicon.ico")
+def favicon():
+    return send_from_directory(
+        "static/icon", "favicon.ico", mimetype="image/vnd.microsoft.icon"
+    )
 
 
 @bp.route("/set_language/<language>", methods=["POST"])
