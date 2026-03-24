@@ -11,7 +11,7 @@ aside ul li a:hover {
   background-repeat: no-repeat;
   background-position: 10px center;
   background-size: 30px 50px;
-  background-color: rgba(76, 131, 173, 0.9);
+  background-color: var(--customcolor2);
   padding-left: 50px;
 
 }
@@ -22,7 +22,8 @@ aside ul li.panelclicked a {
   background-repeat: no-repeat;
   background-position: 10px center;
   background-size: 30px 50px;
-  background-color: rgba(237, 102, 237, 0.9);
+  background-color: var(--customcolor2);
+  margin-right:-18px;
   padding-left: 50px;
 }
 
